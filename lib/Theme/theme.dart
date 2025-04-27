@@ -1,12 +1,19 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3d9d38404b5787b5ad37c64c638a8453a7b08388
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static const Color primaryColor = Color(0xFF6C6EFF);
   static const Color secondaryColor = Color(0xFF66CCFF);
+<<<<<<< HEAD
   static const Color backgroundColor = Color(0xFFCBC3AC);
+=======
+  static const Color backgroundColor = Color(0xFFFFC107);
+>>>>>>> 3d9d38404b5787b5ad37c64c638a8453a7b08388
   static const Color cardColor = Colors.white;
   static const Color textPrimaryColor = Color(0xff203748);
   static const Color textSecondaryColor = Color(0xff67526f);
@@ -27,6 +34,7 @@ class AppTheme {
       cardTheme: CardTheme(
         color: cardColor,
         elevation: 2,
+<<<<<<< HEAD
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         )
@@ -64,6 +72,10 @@ class AppTheme {
         ),
 
       ),
+=======
+      ),
+
+>>>>>>> 3d9d38404b5787b5ad37c64c638a8453a7b08388
     );
 
   }
