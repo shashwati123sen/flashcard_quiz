@@ -17,7 +17,7 @@ class Quiz {
     required this.timeLimit,
     required this.questions,
     required this.createdAt,
-    required this.updatedAt,
+    this.updatedAt,
   });
 
   factory Quiz.fromMap(String id, Map<String, dynamic> map) {

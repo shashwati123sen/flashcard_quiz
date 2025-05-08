@@ -1,3 +1,6 @@
+
+
+
 class Category {
   final String id;
   final String name;
@@ -8,7 +11,7 @@ class Category {
     required this.id,
     required this.name,
     required this.description,
-    required this.createdAt,
+    this.createdAt,
   });
 
   factory Category.fromMap(String id, Map<String, dynamic> map) {
