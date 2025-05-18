@@ -43,7 +43,7 @@ class _ManageQuizScreenState extends State<ManageQuizScreen> {
         _categories = categories;
         if (widget.categoryId != null) {
           _initialCategory = categories.firstWhere(
-                (element) => element.id == widget.categoryId,
+                (category) => category.id == widget.categoryId,
             orElse: () => Category(
               id: widget.categoryId!,
               name: "Unknown",
@@ -66,6 +66,38 @@ class _ManageQuizScreenState extends State<ManageQuizScreen> {
       query = query.where("categoryId", isEqualTo: filterCategoryId);
     }
     return query.snapshots();
+  }
+  Widget _buildTitle(){
+    String? categoryId = _selectedCategoryId ?? widget.categoryId;
+    if(categoryId==null){
+      return Text(
+        "All Quizzes",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+    return StreamBuilder<DocumentSnapshot>(
+        stream: _firestore.collection('categories').doc(categoryId).snapshots(),
+        builder: (context, snapshot){
+          if(!snapshot.hasData){
+            return Text(
+              "Loading....",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          }
+          final category = Category.fromMap(categoryId,snapshot.data!.data() as Map<String, dynamic>,);
+          return Text(
+            category.name,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          );
+        }
+
+    );
   }
 
   @override
@@ -109,6 +141,38 @@ class _ManageQuizScreenState extends State<ManageQuizScreen> {
               onChanged: (value) {
                 setState(() {
                   _searchQuery = value.toLowerCase();
+                });
+              },
+            ),
+          ),
+          Padding(padding: EdgeInsets.all(12),
+            child: DropdownButtonFormField<String>(
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 18),
+                border: OutlineInputBorder(
+
+                ),
+                hintText: "Category",
+              ),
+              value: _selectedCategoryId,
+              items: [
+                DropdownMenuItem(child:
+                    Text("All Categories"),
+                  value: null,
+                ),
+                if(_initialCategory!=null && _categories.every((c) => c.id != _initialCategory!.id))
+                  DropdownMenuItem(
+                      child: Text(_initialCategory!.name),
+                    value: _initialCategory!.id,
+                  ),
+                ..._categories.map((category) => DropdownMenuItem(child: Text(category.name),
+                  value: category.id,
+                ))
+              ],
+              onChanged: (value){
+                setState(() {
+                  _selectedCategoryId = value;
                 });
               },
             ),

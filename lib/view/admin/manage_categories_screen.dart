@@ -32,7 +32,7 @@ class _ManageCategoriesScreenState extends State<ManageCategoriesScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddCategoryScreen()),
+                MaterialPageRoute(builder: (context) => AddCategoryScreen()),
               );
             },
           ),
@@ -71,7 +71,7 @@ class _ManageCategoriesScreenState extends State<ManageCategoriesScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const AddCategoryScreen()),
+                        MaterialPageRoute(builder: (context) => AddCategoryScreen()),
                       );
                     },
                     child: const Text("Add Category"),
@@ -128,7 +128,7 @@ class _ManageCategoriesScreenState extends State<ManageCategoriesScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddQuizScreen(categoryId: category.id,), // ✅ pass category object
+                        builder: (context) => ManageQuizScreen(categoryId: category.id, categoryName: category.name,), // ✅ pass category object
                       ),
                     );
                   },

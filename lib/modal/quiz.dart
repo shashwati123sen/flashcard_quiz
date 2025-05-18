@@ -1,5 +1,4 @@
-import 'package:quiz_project/modal/question.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'question.dart';
 
 class Quiz {
   final String id;
@@ -17,44 +16,31 @@ class Quiz {
     required this.timeLimit,
     required this.questions,
     required this.createdAt,
-    this.updatedAt,
+    required this.updatedAt,
   });
 
   factory Quiz.fromMap(String id, Map<String, dynamic> map) {
     return Quiz(
       id: id,
-      title: map['title'] ?? "",
-      categoryId: map['categoryId'] ?? "",
-      timeLimit: map['timeLimit'] is int
-          ? map['timeLimit']
-          : int.tryParse(map['timeLimit'].toString()) ?? 0,
-      questions: (map['questions'] as List<dynamic>? ?? [])
-          .map((e) => Question.fromMap(e as Map<String, dynamic>))
+      title: map['title'] ?? '',
+      categoryId: map['categoryId'] ?? '',
+      timeLimit: map['timeLimit'] ?? 0,
+      questions: (map['questions'] as List)
+          .map((e) => Question.fromMap(e))
           .toList(),
       createdAt: map['createdAt']?.toDate(),
       updatedAt: map['updatedAt']?.toDate(),
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({bool isUpdate = false}) {
     return {
       'title': title,
       'categoryId': categoryId,
       'timeLimit': timeLimit,
       'questions': questions.map((e) => e.toMap()).toList(),
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-    };
-  }
-
-  Map<String, dynamic> toMapV2() {
-    return {
-      'title': title,
-      'categoryId': categoryId,
-      'timeLimit': timeLimit,
-      'questions': questions.map((e) => e.toMap()).toList(),
-      'createdAt': createdAt ?? DateTime.now(),
-      'updateAt': DateTime.now(),
+      'createdAt' : DateTime.now(),
+      'updatedAt' : DateTime.now(),
     };
   }
 
@@ -63,16 +49,19 @@ class Quiz {
     String? categoryId,
     int? timeLimit,
     List<Question>? questions,
+    DateTime? updatedAt,
+    DateTime? createdAt,
   }) {
     return Quiz(
-      id: id,
+      id: id ,
       title: title ?? this.title,
       categoryId: categoryId ?? this.categoryId,
       timeLimit: timeLimit ?? this.timeLimit,
       questions: questions ?? this.questions,
-      createdAt: createdAt,
       updatedAt: DateTime.now(),
+      createdAt: DateTime.now(),
     );
   }
+
 
 }

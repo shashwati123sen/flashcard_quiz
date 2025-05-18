@@ -65,7 +65,8 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
       _questionsItem.add(
         QuestionFormItem(
           questionController: TextEditingController(),
-          optionsControllers: List.generate(4, (_) => TextEditingController()),
+          optionsControllers: List.generate
+            (4, (_) => TextEditingController()),
           correctOptionIndex: 0,
         ),
       );
@@ -112,7 +113,8 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
           timeLimit: int.parse(_timeLimitController.text),
           questions: questions,
           createdAt: DateTime.now(),
-        ).toMap(),
+          updatedAt: DateTime.now(), // <-- Added this line
+        ).toMap(isUpdate: false),
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -121,6 +123,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
           backgroundColor: AppTheme.secondaryColor,
         ),
       );
+
       Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -141,7 +144,20 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.backgroundColor,
-        title: Text( widget.categoryName != null ? "Add ${widget.categoryName} QUiz":"Add Quiz", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text( widget.categoryName != null ?
+        "Add ${widget.categoryName} QUiz":"Add Quiz",
+            style: TextStyle(
+                fontWeight: FontWeight.bold)
+        ),
+        actions: [
+          IconButton(
+            onPressed: _isLoading ? null : _saveQuiz,
+            icon: Icon(
+              Icons.save,
+              color: AppTheme.primaryColor,
+            ),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,

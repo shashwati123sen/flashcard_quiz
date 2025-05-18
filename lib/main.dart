@@ -2,7 +2,7 @@ import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:quiz_project/view/admin/admin_home_screen.dart";
 import "package:quiz_project/theme/theme.dart";
-
+import "package:quiz_project/view/user/home_screen.dart";
 import "firebase_options.dart";
 
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       title: "FlashCard_Quiz",
         theme: AppTheme.theme,
-      home: AdminHomeScreen()
+      home:HomeScreen()
     );
   }
 }
